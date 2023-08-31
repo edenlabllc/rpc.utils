@@ -18,18 +18,13 @@ defmodule RpcView do
     data
     |> Map.drop([:__meta__, :__struct__])
     |> Enum.reduce(%{}, fn {key, value}, acc ->
-      if not assoc_not_loaded?(value) do
-        Map.put(acc, key, render(value))
-      else
-        acc
+      case value do
+        %Ecto.Association.NotLoaded{} -> acc
+        _ -> Map.put(acc, key, render(value))
       end
     end)
   end
 
   def render(data) when is_list(data), do: Enum.map(data, &render/1)
-
   def render(data), do: data
-
-  defp assoc_not_loaded?(%Ecto.Association.NotLoaded{}), do: true
-  defp assoc_not_loaded?(_), do: false
 end

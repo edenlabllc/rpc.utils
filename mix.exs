@@ -12,22 +12,18 @@ defmodule RpcUtils.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
+  defp elixirc_paths(:test), do: ["lib", "test/schemas"]
+  defp elixirc_paths(_), do: ["lib"]
+
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto, "~> 3.7.0"}
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:ecto, "~> 3.0"}
     ]
   end
-
-  defp elixirc_paths(:test), do: ["lib", "test/schema"]
-  defp elixirc_paths(_), do: ["lib"]
 end

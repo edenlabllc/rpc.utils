@@ -2,31 +2,31 @@ defmodule RpcViewTest do
   use ExUnit.Case
   doctest RpcView
 
+  alias Schema.{Comment, Post}
+
   describe "render/1" do
     test "returns map without __metadata__ key" do
-      post = Schema.Comment.changeset(%{body: "test_body"})
+      comment = struct!(Comment, %{body: "test_body"})
 
-      assert RpcView.render(post) == %{body: "test_body", id: nil}
+      assert %{body: "test_body", id: nil} = RpcView.render(comment)
     end
 
     test "returns map without __metadata__ key and NotLoaded associations" do
-      post = Schema.Post.changeset(%{title: "test_title", body: "test_body"})
+      post = struct!(Post, %{title: "test_title", body: "test_body"})
 
-      assert RpcView.render(post) == %{title: "test_title", body: "test_body", id: nil}
+      assert %{title: "test_title", body: "test_body", id: nil} = RpcView.render(post)
     end
 
-    test "returns map without __metadata__ key and NotLoaded associations. Additionaly apply this fuction for internal maps and structs" do
-      post = Schema.Post.changeset(%{title: "test_title", body: "test_body"})
+    test "returns map with preloaded relation" do
+      comment = struct!(Comment, %{body: "test_body"})
+      post = struct!(Post, %{title: "test_title", body: "test_body", comments: [comment]})
 
-      comment = Ecto.build_assoc(post, :comments, %{body: "test_comment"})
-      post_map = post |> Map.from_struct() |> Map.put(:comments, [comment])
-
-      assert RpcView.render(post_map) == %{
+      assert %{
                title: "test_title",
                body: "test_body",
                id: nil,
                comments: [%{body: "test_comment", id: nil}]
-             }
+             } = RpcView.render(post)
     end
   end
 end
