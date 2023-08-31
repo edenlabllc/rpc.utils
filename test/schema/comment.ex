@@ -1,4 +1,7 @@
 defmodule Schema.Comment do
+  @moduledoc ~S"""
+  The dummy test model that is not stored in the database.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
