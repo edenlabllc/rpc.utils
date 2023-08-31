@@ -2,7 +2,7 @@ defmodule RpcViewTest do
   use ExUnit.Case
   doctest RpcView
 
-  alias Schema.{Comment, Post}
+  alias Schemas.{Comment, Post}
 
   describe "render/1" do
     test "returns map without __metadata__ key" do
@@ -18,7 +18,7 @@ defmodule RpcViewTest do
     end
 
     test "returns map with preloaded relation" do
-      comment = struct!(Comment, %{body: "test_body"})
+      comment = struct!(Comment, %{body: "test_comment"})
       post = struct!(Post, %{title: "test_title", body: "test_body", comments: [comment]})
 
       assert %{
