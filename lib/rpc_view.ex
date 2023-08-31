@@ -14,15 +14,9 @@ defmodule RpcView do
       %{id: 1}
   """
 
-  def strip_meta_info(data) when is_struct(data) do
-    data
-    |> Map.from_struct()
-    |> strip_meta_info()
-  end
-
   def strip_meta_info(data) when is_map(data) do
     data
-    |> Map.drop([:__meta__])
+    |> Map.drop([:__meta__, :__struct__])
     |> Enum.reduce(%{}, fn {key, value}, acc ->
       unless assoc_not_loaded?(value) do
         Map.put(acc, key, strip_meta_info(value))
