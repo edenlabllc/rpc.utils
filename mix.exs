@@ -23,7 +23,8 @@ defmodule RpcUtils.MixProject do
 
   defp deps do
     [
-      {:ecto, "~> 3.0"}
+      {:ecto, "~> 3.0"},
+      {:credo, "~> 1.6.1", only: [:dev, :test]}
     ]
   end
 end

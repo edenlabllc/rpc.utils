@@ -1,4 +1,7 @@
 defmodule Schemas.Comment do
+  @moduledoc """
+  Comment schema for testing.
+  """
   use Ecto.Schema
 
   embedded_schema do
