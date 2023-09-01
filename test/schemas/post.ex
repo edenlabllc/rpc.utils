@@ -1,4 +1,7 @@
 defmodule Schemas.Post do
+  @moduledoc """
+  Post schema for testing.
+  """
   use Ecto.Schema
 
   embedded_schema do
