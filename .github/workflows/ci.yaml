@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 env:
   ELIXIR_VERISON: 1.14.3
   OTP_VERSION: 24
@@ -16,12 +20,6 @@ jobs:
       MIX_ENV: test
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          all_but_latest: true
-          access_token: ${{ github.token }}
-
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -56,12 +54,6 @@ jobs:
       MIX_ENV: test
 
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          all_but_latest: true
-          access_token: ${{ github.token }}
-
       - name: Checkout
         uses: actions/checkout@v2
 
