@@ -7,5 +7,6 @@ defmodule Schemas.Comment do
   embedded_schema do
     field(:body, :string)
     field(:post_id, :integer)
+    field(:inserted_at, :utc_datetime)
   end
 end
