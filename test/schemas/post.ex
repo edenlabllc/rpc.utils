@@ -7,6 +7,7 @@ defmodule Schemas.Post do
   embedded_schema do
     field(:title, :string)
     field(:body, :string)
+    field(:posted_at, :date)
     has_many(:comments, Schemas.Comment)
   end
 end

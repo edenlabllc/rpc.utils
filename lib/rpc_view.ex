@@ -14,6 +14,11 @@ defmodule RpcView do
       %{id: 1}
   """
 
+  def render(%Time{} = value), do: value
+  def render(%Date{} = value), do: value
+  def render(%DateTime{} = value), do: value
+  def render(%NaiveDateTime{} = value), do: value
+
   def render(data) when is_map(data) do
     data
     |> Map.drop([:__meta__, :__struct__])
